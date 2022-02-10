@@ -58,22 +58,6 @@ def existing_acc():
         pw_verify(user_found)
 
 
-def pw_verify(user):
-    """
-    Checks user's password against database
-    """
-    pw_accepted = False
-    while pw_accepted is False:
-        pw_check = input("\nWhat's your password?\n")
-        pw_counter = PW_SHEET.cell(user.row, 1).value
-        if pw_check != pw_counter:
-            print("\n-x-Wrong password-x-")
-            continue
-        elif pw_check == pw_counter:
-            pw_accepted = True
-            pw_passed(user)
-
-
 def create_acc():
     """
     Create a new user on the first empty row on the users spreadsheet
@@ -106,8 +90,49 @@ def create_pw(pw):
             new_pw_row = int(len(PW_SHEET.col_values(1)))+1
             PW_SHEET.update_cell(new_pw_row, 1, f'{pw}')
             print("\nYour account has been created successfully!\n")
-            
-            
+
+
+def pw_verify(user):
+    """
+    Checks user's password against database
+    """
+    pw_accepted = False
+    while pw_accepted is False:
+        pw_check = input("\nWhat's your password?\n")
+        pw_counter = PW_SHEET.cell(user.row, 1).value
+        if pw_check != pw_counter:
+            print("\n-x-Wrong password-x-")
+            continue
+        elif pw_check == pw_counter:
+            pw_accepted = True
+            pw_passed(user)
+
+
+def pw_passed(user):
+    while True:
+        print("\nWhat would you like to do?")
+        print("1.Create a new password.")
+        print("2.Check an existing password.")
+        print("3.Modify an existing password.")
+        print("4.Modify your master password.")
+        choice = input("5.Exit\n")
+        if choice == "1":
+            inner_new(user)
+        elif choice == "2":
+            inner_check(user)
+        elif choice == "3":
+            single_change(user)
+        elif choice == "4":
+            master_change(user)
+        elif choice == "5":
+            print("\nGoodbye")
+            quit()
+        else:
+            print("Invalid choice.\n")
+            continue
+
+
+
 def main():
     print("Welcome to the Password Manager\n")
     account_exist()
