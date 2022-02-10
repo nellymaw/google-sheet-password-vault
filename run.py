@@ -36,6 +36,7 @@ def account_exist():
             print("\nInvalid response.")
             continue
 
+
 def existing_acc():
     """
     Check the existence of the account on the user list.
@@ -111,7 +112,7 @@ def pw_verify(user):
 
 def pw_passed(user):
     """
-    Presents options for the user to interact with the information inside his account.
+    Presents options for the user to interact with his account.
     """
     while True:
         print("\nWhat would you like to do?")
@@ -138,7 +139,7 @@ def pw_passed(user):
 
 def inner_new(user):
     """
-    Creates a new item in the vault (a row with information about the user's account)
+    Creates a new item in the vault
     """
     while True:
         user_page = ACC_SHEET.cell(user.row, user.col).value
@@ -185,7 +186,8 @@ def single_change(user):
 
 def inner_check(user):
     """
-    Print a list of passwords saved in the database, asks for input, and display the password selected
+    Print a list of passwords saved in the database,
+    asks for input, and display the password selected
     """
     while True:
         user_page = ACC_SHEET.cell(user.row, user.col).value
