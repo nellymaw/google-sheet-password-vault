@@ -155,6 +155,34 @@ def inner_new(user):
         break
 
 
+def single_change(user):
+    """
+    Locate and change a password inside the user's worksheet
+    """
+    while True:
+        user_page = ACC_SHEET.cell(user.row, user.col).value
+        local_ws = SHEET.worksheet(user_page)
+        print("\nWould you like to CHECK whick apps/websites")
+        print("you have a password for or do you already know")
+        answer = input("Which password you want to CHANGE?\n")
+        if answer.lower() == "check":
+            print(local_ws.col_values(1))
+        elif answer.lower() == "change":
+            change_pw = input("What password would you like to change it to?")
+            if change_pw in local_ws.col_values(1):
+                pw_location = local_ws.find(f"{change_pw}")
+                new_pw = input("What's the new password?")
+                local_ws.update_cell(pw_location.row, 3, new_pw)
+            else:
+                print("Invalid entry")
+                continue
+        else:
+            print("invalid entry")
+            continue
+        break
+    pass
+
+
 def inner_check(user):
     """
     Print a list of passwords saved in the database, asks for input, and display the password selected
