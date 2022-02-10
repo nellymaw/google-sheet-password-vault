@@ -82,7 +82,7 @@ def create_pw(pw):
     Create a password for the newly created user.
     """
     while True:
-        pw_check = input("Please type your password again.")
+        pw_check = input("Please type your password again.\n")
         if pw != pw_check or len(pw) < 6 or len(pw) > 255:
             print ("\nInvalid password.")
             continue
@@ -90,6 +90,7 @@ def create_pw(pw):
             new_pw_row = int(len(PW_SHEET.col_values(1)))+1
             PW_SHEET.update_cell(new_pw_row, 1, f'{pw}')
             print("\nYour account has been created successfully!\n")
+        break
 
 
 def pw_verify(user):
@@ -109,6 +110,9 @@ def pw_verify(user):
 
 
 def pw_passed(user):
+    """
+    Presents options for the user to interact with the information inside his account.
+    """
     while True:
         print("\nWhat would you like to do?")
         print("1.Create a new password.")
@@ -132,6 +136,23 @@ def pw_passed(user):
             continue
 
 
+def inner_new(user):
+    """
+    Creates a new item in the vault (a row with information about the user's account)
+    """
+    while True:
+        user_page = ACC_SHEET.cell(user.row, user.col).value
+        local_ws = SHEET.worksheet(user_page)
+        new_obj = input("\nWebsite/app name: ")
+        if new_obj not in local_ws.col_values(1):
+            new_un = input("Username: ")
+            new_pass = input("Password: ")
+            local_ws.update_cell((len(local_ws.col_values(1))+1), 1, new_obj)
+            local_ws.update_cell((len(local_ws.col_values(2))+1), 2, new_un)
+            local_ws.update_cell((len(local_ws.col_values(3))+1), 3, new_pass)
+        else:
+            print("Already have a password for that.\n")
+        break
 
 def main():
     print("Welcome to the Password Manager\n")
