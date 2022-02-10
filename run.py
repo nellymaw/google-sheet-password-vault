@@ -72,6 +72,25 @@ def pw_verify(user):
         elif pw_check == pw_counter:
             pw_accepted = True
             pw_passed(user)
+
+
+def create_acc():
+    """
+    Create a new user on the first empty row on the users spreadsheet
+    """
+    invalid_user = True
+    while invalid_user is True:
+        new_user = input("\nWhat username would you like to use?\n")
+        if new_user in ACC_SHEET.col_values(1):
+            print("-*-Username Unavailable-*-")
+            new_user = None
+            continue
+        elif new_user not in ACC_SHEET.col_values(1) and new_user is not None:
+            invalid_user = False
+            if invalid_user is False:
+                new_user_row = int(len(ACC_SHEET.col_values(1)))+1
+                ACC_SHEET.update_cell(new_user_row, 1, f'{new_user}')
+                SHEET.add_worksheet(title=f'{new_user}', rows="100", cols="3")
             
             
 def main():
