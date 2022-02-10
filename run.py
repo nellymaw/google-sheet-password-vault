@@ -12,6 +12,9 @@ SCOPE = [
 CREDS = Credentials.from_service_account_file('creds.json')
 SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
+SHEET = GSPREAD_CLIENT.open('pwManager')
+ACC_SHEET = SHEET.worksheet('usernames')
+
 
 def account_exist():
     """
@@ -32,8 +35,31 @@ def account_exist():
             print("\nInvalid response.")
             continue
 
+def existing_acc():
+    """
+    Check the existence of the account on the user list.
+    """
+    while True:
+        user_check = input("\nWhat's your username?\n")
+        if user_check in ACC_SHEET.col_values(1):
+            user_found = ACC_SHEET.find(f"{user_check}")
+        else:
+            print("User not found. RETRY or CREATE a new one?")
+            retryOrCreate = input("")
+            if retryOrCreate.lower() == "retry":
+                continue
+            elif retryOrCreate.lower() == "create":
+                create_acc()
+                continue
+            else:
+                print("Invalid response")
+                continue
+        pw_verify(user_found)
+
 def main():
     print("Welcome to the Password Manager\n")
     account_exist()
+    existing_acc()
+
 
 main()
