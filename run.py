@@ -91,6 +91,21 @@ def create_acc():
                 new_user_row = int(len(ACC_SHEET.col_values(1)))+1
                 ACC_SHEET.update_cell(new_user_row, 1, f'{new_user}')
                 SHEET.add_worksheet(title=f'{new_user}', rows="100", cols="3")
+
+
+def create_pw(pw):
+    """
+    Create a password for the newly created user.
+    """
+    while True:
+        pw_check = input("Please type your password again.")
+        if pw != pw_check or len(pw) < 6 or len(pw) > 255:
+            print ("\nInvalid password.")
+            continue
+        elif pw == pw_check:
+            new_pw_row = int(len(PW_SHEET.col_values(1)))+1
+            PW_SHEET.update_cell(new_pw_row, 1, f'{pw}')
+            print("\nYour account has been created successfully!\n")
             
             
 def main():
