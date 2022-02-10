@@ -154,6 +154,27 @@ def inner_new(user):
             print("Already have a password for that.\n")
         break
 
+
+def inner_check(user):
+    """
+    Print a list of passwords saved in the database, asks for input, and display the password selected
+    """
+    while True:
+        user_page = ACC_SHEET.cell(user.row, user.col).value
+        local_ws = SHEET.worksheet(user_page)
+        print("Which password would you like to retrieve?")
+        print (f"{local_ws.col_values(1)}")
+        pw_choice = input("\nPlease type the exact name\n")
+        if pw_choice in local_ws.col_values(1):
+            local_pws = local_ws.find(f"{pw_choice}")
+            print(f"\nUsername: {local_ws.cell(local_pws,2).value}")
+            print(f"Password: {local_ws.cell(local_pws,3).value}")
+            break
+        else:
+            print("Invalid response\n")
+            continue
+    pass
+
 def main():
     print("Welcome to the Password Manager\n")
     account_exist()
