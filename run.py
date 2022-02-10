@@ -14,6 +14,7 @@ SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('pwManager')
 ACC_SHEET = SHEET.worksheet('usernames')
+PW_SHEET = SHEET.worksheet('passwords')
 
 
 def account_exist():
@@ -56,6 +57,23 @@ def existing_acc():
                 continue
         pw_verify(user_found)
 
+
+def pw_verify(user):
+    """
+    Checks user's password against database
+    """
+    pw_accepted = False
+    while pw_accepted is False:
+        pw_check = input("\nWhat's your password?\n")
+        pw_counter = PW_SHEET.cell(user.row, 1).value
+        if pw_check != pw_counter:
+            print("\n-x-Wrong password-x-")
+            continue
+        elif pw_check == pw_counter:
+            pw_accepted = True
+            pw_passed(user)
+            
+            
 def main():
     print("Welcome to the Password Manager\n")
     account_exist()
