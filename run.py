@@ -47,7 +47,7 @@ def existing_acc():
             user_found = ACC_SHEET.find(f"{user_check}")
         else:
             print("User not found. RETRY or CREATE a new one?")
-            retryOrCreate = input("")
+            retryOrCreate = input("\n")
             if retryOrCreate.lower() == "retry":
                 continue
             elif retryOrCreate.lower() == "create":
@@ -144,10 +144,10 @@ def inner_new(user):
     while True:
         user_page = ACC_SHEET.cell(user.row, user.col).value
         local_ws = SHEET.worksheet(user_page)
-        new_obj = input("\nWebsite/app name: ")
+        new_obj = input("Website/app name:\n")
         if new_obj not in local_ws.col_values(1):
-            new_un = input("Username: ")
-            new_pass = input("Password: ")
+            new_un = input("Username:\n")
+            new_pass = input("Password:\n")
             local_ws.update_cell((len(local_ws.col_values(1))+1), 1, new_obj)
             local_ws.update_cell((len(local_ws.col_values(2))+1), 2, new_un)
             local_ws.update_cell((len(local_ws.col_values(3))+1), 3, new_pass)
@@ -169,10 +169,10 @@ def single_change(user):
         if answer.lower() == "check":
             print(local_ws.col_values(1))
         elif answer.lower() == "change":
-            change_pw = input("What password would you like to change it to?")
+            change_pw = input("What password would you like to change it to?\n")
             if change_pw in local_ws.col_values(1):
                 pw_location = local_ws.find(f"{change_pw}")
-                new_pw = input("What's the new password?")
+                new_pw = input("What's the new password?\n")
                 local_ws.update_cell(pw_location.row, 3, new_pw)
             else:
                 print("Invalid entry")
