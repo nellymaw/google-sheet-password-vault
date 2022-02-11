@@ -208,7 +208,7 @@ def master_change(user):
     while True:
         new_master = input('\nEnter new master password\n')
         if len(new_master) >= 6 and len(new_master) <= 255:
-            PW_SHEET.update_cell(user.row, 1, f'{new_master}')
+            ACC_SHEET.update_cell(user.row, 2, f'{new_master}')
             print("Password modified successfully!")
             break
         else:
