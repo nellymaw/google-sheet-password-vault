@@ -14,7 +14,6 @@ SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('pwManager')
 ACC_SHEET = SHEET.worksheet('usernames')
-PW_SHEET = SHEET.worksheet('passwords')
 
 
 def account_exist():
@@ -27,9 +26,6 @@ def account_exist():
         answerLow = answer.lower()
         if answerLow == "no" or answerLow == "n":
             create_acc()
-            print("Your password must be between 6 and 255 characters.")
-            new_pw = input("\nPlease type your password.\n")
-            create_pw(new_pw)
         elif answerLow == "yes" or answerLow == "y":
             return answerLow
         else:
@@ -66,7 +62,7 @@ def create_acc():
     invalid_user = True
     while invalid_user is True:
         new_user = input("\nWhat username would you like to use?\n")
-        if new_user in ACC_SHEET.col_values(1) or new_user.contains(" "):
+        if new_user in ACC_SHEET.col_values(1) or " " in new_user:
             print("-*-Username Unavailable-*-")
             new_user = None
             continue
@@ -76,9 +72,11 @@ def create_acc():
                 new_user_row = int(len(ACC_SHEET.col_values(1)))+1
                 ACC_SHEET.update_cell(new_user_row, 1, f'{new_user}')
                 SHEET.add_worksheet(title=f'{new_user}', rows="100", cols="3")
+        print("Your password must be between 6 and 255 characters.")
+        new_pw = input("\nPlease type your password.\n")
+        create_pw(new_pw,new_user)
 
-
-def create_pw(pw):
+def create_pw(pw,user):
     """
     Create a password for the newly created user.
     """
@@ -88,8 +86,8 @@ def create_pw(pw):
             print ("\nInvalid password.")
             continue
         elif pw == pw_check:
-            new_pw_row = int(len(PW_SHEET.col_values(1)))+1
-            PW_SHEET.update_cell(new_pw_row, 1, f'{pw}')
+            new_pw_row = ACC_SHEET.find(f"{user}").row
+            ACC_SHEET.update_cell(new_pw_row, 2, f'{pw}')
             print("\nYour account has been created successfully!\n")
         break
 
@@ -101,7 +99,7 @@ def pw_verify(user):
     pw_accepted = False
     while pw_accepted is False:
         pw_check = input("\nWhat's your password?\n")
-        pw_counter = PW_SHEET.cell(user.row, 1).value
+        pw_counter = ACC_SHEET.cell(user.row, 2).value
         if pw_check != pw_counter:
             print("\n-x-Wrong password-x-")
             continue
