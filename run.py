@@ -66,7 +66,7 @@ def create_acc():
     invalid_user = True
     while invalid_user is True:
         new_user = input("\nWhat username would you like to use?\n")
-        if new_user in ACC_SHEET.col_values(1):
+        if new_user in ACC_SHEET.col_values(1) or new_user.contains(" "):
             print("-*-Username Unavailable-*-")
             new_user = None
             continue
