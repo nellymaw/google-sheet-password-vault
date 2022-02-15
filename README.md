@@ -13,7 +13,7 @@ If their credentials match the ones on the database, they will be displayed 5 op
 ## Design
 ### Flowchart
 
-![Flowchart](https://github.com/nellymaw/google-sheet-password-vault/tree/main/readmeContent/Flowchart.svg)
+![Flowchart](https://github.com/nellymaw/google-sheet-password-vault/blob/main/readmeContent/Flowchart.svg)
 
 ## Features
 **************************
