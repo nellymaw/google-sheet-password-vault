@@ -24,6 +24,7 @@ If their credentials match the ones on the database, they will be displayed 5 op
 ## Data Model
 
 The user used throughout the second half of the program's run contains 3 values <CELL RowN#ColN# "Value"> this data type is automatically generated via Gspread.
+
 Through the program's code, the value is used to locate rows and columns and also values on occasion to pinpoint where the next logical step for the program is.
 
 
@@ -32,7 +33,8 @@ I have manually tested the project by doing the following:
 - Passed the code through a PEP8 linter and confirmed that there are no errors.
 - Given invalid inputs, passwords too long or too short, and inputs that shouldn't be used.
 - Tested in my local terminal.
-- Had it tested through Heroku by third-party.
+
+I Had it tested through Heroku by a third-party.
 
 ## Bugs
 ### Solved Bugs
