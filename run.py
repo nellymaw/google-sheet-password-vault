@@ -20,14 +20,14 @@ def account_exist():
     """
     Asks if the user has an account
     """
-    answerLow = ""
+    answer_low = ""
     while True:
         answer = input("Do you have an account? Y/N\n")
-        answerLow = answer.lower()
-        if answerLow == "no" or answerLow == "n":
+        answer_low = answer.lower()
+        if answer_low == "no" or answer_low == "n":
             create_acc()
-        elif answerLow == "yes" or answerLow == "y":
-            return answerLow
+        elif answer_low == "yes" or answer_low == "y":
+            return answer_low
         else:
             print("\nInvalid response.")
             continue
@@ -43,10 +43,10 @@ def existing_acc():
             user_found = ACC_SHEET.find(f"{user_check}")
         else:
             print("\nUser not found. RETRY or CREATE a new one?")
-            retryOrCreate = input("\n")
-            if retryOrCreate.lower() == "retry":
+            retry_create = input("\n")
+            if retry_create.lower() == "retry":
                 continue
-            elif retryOrCreate.lower() == "create":
+            elif retry_create.lower() == "create":
                 create_acc()
                 continue
             else:
@@ -60,11 +60,11 @@ def create_acc():
     Create a new user on the first empty row on the users spreadsheet
     """
     invalid_user = True
+    new_user = None
     while invalid_user is True:
         new_user = input("\nWhat username would you like to use?\n")
         if new_user in ACC_SHEET.col_values(1) or " " in new_user:
             print("-*-Username Unavailable-*-")
-            new_user = None
             continue
         elif new_user not in ACC_SHEET.col_values(1) and new_user is not None:
             invalid_user = False
@@ -74,9 +74,10 @@ def create_acc():
                 SHEET.add_worksheet(title=f'{new_user}', rows="100", cols="3")
         print("\nYour password must be between 6 and 255 characters.")
         new_pw = input("Please type your password.\n")
-        create_pw(new_pw,new_user)
+        create_pw(new_pw, new_user)
 
-def create_pw(pw,user):
+
+def create_pw(pw, user):
     """
     Create a password for the newly created user.
     """
@@ -110,7 +111,7 @@ def pw_verify(user):
 
 def pw_passed(user):
     """
-    Presents options for the user to interact with his account.
+    Display account options
     """
     while True:
         print("\nWhat would you like to do?")
@@ -189,7 +190,7 @@ def single_change(user):
         if answer.lower() == "check":
             print(local_ws.col_values(1))
         elif answer.lower() == "change":
-            change_pw = input("What password would you like to change it to?\n")
+            change_pw = input("Please type your new password\n")
             if change_pw in local_ws.col_values(1):
                 pw_location = local_ws.find(f"{change_pw}")
                 new_pw = input("What's the new password?\n")
@@ -202,7 +203,6 @@ def single_change(user):
             print("invalid entry")
             continue
         break
-
 
 
 def master_change(user):
@@ -223,4 +223,5 @@ def main():
     existing_acc()
 
 
-main()
+if _name_ == '__main__':
+    main()

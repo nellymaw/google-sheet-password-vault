@@ -72,6 +72,7 @@ I Had it tested through Heroku by a third-party.
 ### Solved Bugs
 - When a new user is created but there was already a user with the same username.
 - If a search returned empty there would be an AttributeError, that has been resolved.
+- User use empty username
 
 ### Known Bugs
 - No known bugs remaining.
@@ -126,7 +127,7 @@ $ git clone https://github.com/YOUR-USERNAME/YOUR-REPOSITORY
 ### Gitpod
 
 1. Install the gitpod browser extension. [Gitpod Browser Extension](https://www.gitpod.io/docs/browser-extension/)
-2. Go to the project repository. [Password Generator](https://github.com/nellymaw/password-generator)
+2. Go to the project repository. [Google sheet password vault](https://github.com/nellymaw/google-sheet-password-vault)
 3. click the gitpod button beside the about section.  ![Gitpod Deploy](https://github.com/nellymaw/password-generator/blob/main/readmeContent/gitpodDeploy.png)
 
 ## Credits
