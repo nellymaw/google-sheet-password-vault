@@ -142,13 +142,14 @@ def inner_new(user):
     while True:
         user_page = ACC_SHEET.cell(user.row, user.col).value
         local_ws = SHEET.worksheet(user_page)
-        new_obj = input("Website/app name:\n")
+        new_obj = input("\nWebsite/app name:\n")
         if new_obj not in local_ws.col_values(1):
-            new_un = input("Username:\n")
-            new_pass = input("Password:\n")
+            new_un = input("\nUsername:\n")
+            new_pass = input("\nPassword:\n")
             local_ws.update_cell((len(local_ws.col_values(1))+1), 1, new_obj)
             local_ws.update_cell((len(local_ws.col_values(2))+1), 2, new_un)
             local_ws.update_cell((len(local_ws.col_values(3))+1), 3, new_pass)
+            print(f"Successfully created {new_obj}")
         else:
             print("Already have a password for that.\n")
         break
