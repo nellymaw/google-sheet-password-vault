@@ -5,8 +5,11 @@ The main focus of this project is to develop a password vault for storage of pre
 
 ## How to use
 Once the program starts users will be asked if they have an account. 
+
 If the user doesn't, they will be set to create one, if on the other hand, they do, it will request their username and password, and compare it to the database.
+
 In case the provided data is incorrect the user will be prompted with a choice of retrying their credentials or creating a new account.
+
 If their credentials match the ones on the database, they will be displayed 5 options: Create a new password (this will allow the user to create an item inside the vault), check existing passwords(check all items inside the vault, asks for input on which should be retrieved and displays that one), change one of the existing passwords stored inside the vault, change the master password(changes password needed to log into vault's account) or exit the program.
 
 
