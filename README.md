@@ -53,24 +53,24 @@ I Had it tested through Heroku by a third-party.
 
 The project was deployed to GitHub Pages using the following steps...
 
-1. Log in to GitHub and locate the [GitHub Repository](https://github.com/nellymaw/password-generator)
+1. Log in to GitHub and locate the [GitHub Repository](https://github.com/nellymaw/google-sheet-password-vault)
 2. At the top of the Repository (not the top of the page), locate the "Settings" button on the menu.
 3. Scroll down the Settings page until you locate the "GitHub Pages" Section.
 4. Under "Source", click the dropdown called "None" and select "Master Branch".
 5. The page will automatically refresh.
-6. Scroll back down through the page to locate the now published site [link](https://nellymaw.github.io/password-generator/) in the "GitHub Pages" section.
+6. Scroll back down through the page to locate the now published site [link](https://github.com/nellymaw/google-sheet-password-vault) in the "GitHub Pages" section.
 
 ### Forking the GitHub Repository
 
 By forking the GitHub Repository we make a copy of the original repository on our GitHub account to view and/or make changes without affecting the original repository by using the following steps...
 
-1. Log in to GitHub and locate the [GitHub Repository](https://github.com/nellymaw/password-generator)
+1. Log in to GitHub and locate the [GitHub Repository](https://github.com/nellymaw/google-sheet-password-vault)
 2. At the top of the Repository (not top of page) just above the "Settings" button on the menu, locate the "Fork" button.
 3. You should now have a copy of the original repository in your GitHub account.
 
 ### Making a Local Clone
 
-1. Log in to GitHub and locate the [GitHub Repository](https://github.com/nellymaw/password-generator)
+1. Log in to GitHub and locate the [GitHub Repository](https://github.com/nellymaw/google-sheet-password-vault)
 2. Under the repository name, click "Clone or download".
 3. To clone the repository using HTTPS, under "Clone with HTTPS", copy the link.
 4. Open Git Bash
