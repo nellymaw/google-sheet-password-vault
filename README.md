@@ -1,7 +1,9 @@
 # Password Vault
  
 ## Overview
-The main focus of this project is to develop a password vault for storage of previously generated passwords, ideally using the [Password Generator](https://nellymaw.github.io/password-generator/) created for the portfolio project 2. This program can create a new master account, with a unique username and personalized password, change the master password in case of need, it can also create and modify new items inside itself (i.e. Facebook account, Slack account), it also able to display the passwords stored within it.
+The main focus of this project is to develop a password vault for storage of previously generated passwords, ideally using the [Password Generator](https://nellymaw.github.io/password-generator/) created for the portfolio project 2. 
+
+This program can create a new master account, with a unique username and personalized password, change the master password in case of need, it can also create and modify new items inside itself (i.e. Facebook account, Slack account), it also able to display the passwords stored within it.
 
 ## How to use
 Once the program starts users will be asked if they have an account. 
