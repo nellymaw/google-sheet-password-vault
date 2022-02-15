@@ -179,7 +179,6 @@ def single_change(user):
             print("invalid entry")
             continue
         break
-    pass
 
 
 def inner_check(user):
@@ -201,7 +200,6 @@ def inner_check(user):
         else:
             print("Invalid response\n")
             continue
-    pass
 
 
 def master_change(user):
