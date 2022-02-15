@@ -8,11 +8,41 @@ This program can create a new master account, with a unique username and persona
 ## How to use
 Once the program starts users will be asked if they have an account. 
 
+![HaveAcc](https://github.com/nellymaw/google-sheet-password-vault/blob/main/readmeContent/haveAcoount.png)
+
 If the user doesn't, they will be set to create one, if on the other hand, they do, it will request their username and password, and compare it to the database.
+
+![HaveAcc](https://github.com/nellymaw/google-sheet-password-vault/blob/main/readmeContent/whatUsername.png)
+
+![CreateSuccess](https://github.com/nellymaw/google-sheet-password-vault/blob/main/readmeContent/createSucces.png)
 
 In case the provided data is incorrect the user will be prompted with a choice of retrying their credentials or creating a new account.
 
+![CreateOrRetry](https://github.com/nellymaw/google-sheet-password-vault/blob/main/readmeContent/createOrRetry.png)
+
 If their credentials match the ones on the database, they will be displayed 5 options: Create a new password (this will allow the user to create an item inside the vault), check existing passwords(check all items inside the vault, asks for input on which should be retrieved and displays that one), change one of the existing passwords stored inside the vault, change the master password(changes password needed to log into vault's account) or exit the program.
+
+![WhatToDo](https://github.com/nellymaw/google-sheet-password-vault/blob/main/readmeContent/whatToDo.png)
+
+1. Create a new password.
+
+![CreateItem](https://github.com/nellymaw/google-sheet-password-vault/blob/main/readmeContent/createItem.png)
+
+2. Check an existing password.
+
+![CheckItem](https://github.com/nellymaw/google-sheet-password-vault/blob/main/readmeContent/checkItem.png)
+
+3. Modify an existing password.
+
+![pwChange](https://github.com/nellymaw/google-sheet-password-vault/blob/main/readmeContent/pwChange.png)
+
+4. Modify Master Password.
+
+![pwMaster](https://github.com/nellymaw/google-sheet-password-vault/blob/main/readmeContent/pwMaster.png)
+
+5. Exit.
+
+Quit the program
 
 
 ## Design

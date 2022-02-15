@@ -42,7 +42,7 @@ def existing_acc():
         if user_check in ACC_SHEET.col_values(1):
             user_found = ACC_SHEET.find(f"{user_check}")
         else:
-            print("User not found. RETRY or CREATE a new one?")
+            print("\nUser not found. RETRY or CREATE a new one?")
             retryOrCreate = input("\n")
             if retryOrCreate.lower() == "retry":
                 continue
