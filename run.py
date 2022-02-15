@@ -72,8 +72,8 @@ def create_acc():
                 new_user_row = int(len(ACC_SHEET.col_values(1)))+1
                 ACC_SHEET.update_cell(new_user_row, 1, f'{new_user}')
                 SHEET.add_worksheet(title=f'{new_user}', rows="100", cols="3")
-        print("Your password must be between 6 and 255 characters.")
-        new_pw = input("\nPlease type your password.\n")
+        print("\nYour password must be between 6 and 255 characters.")
+        new_pw = input("Please type your password.\n")
         create_pw(new_pw,new_user)
 
 def create_pw(pw,user):
@@ -81,7 +81,7 @@ def create_pw(pw,user):
     Create a password for the newly created user.
     """
     while True:
-        pw_check = input("Please type your password again.\n")
+        pw_check = input("\nPlease type your password again.\n")
         if pw != pw_check or len(pw) < 6 or len(pw) > 255:
             print ("\nInvalid password.")
             continue
@@ -118,7 +118,7 @@ def pw_passed(user):
         print("2.Check an existing password.")
         print("3.Modify an existing password.")
         print("4.Modify your master password.")
-        choice = input("5.Exit\n")
+        choice = input("5.Exit\n\n")
         if choice == "1":
             inner_new(user)
         elif choice == "2":
@@ -155,6 +155,27 @@ def inner_new(user):
         break
 
 
+def inner_check(user):
+    """
+    Print a list of passwords saved in the database,
+    asks for input, and display the password selected
+    """
+    while True:
+        user_page = ACC_SHEET.cell(user.row, 1).value
+        local_ws = SHEET.worksheet(user_page)
+        print("\nWhich password would you like to retrieve?")
+        print (f"{local_ws.col_values(1)}")
+        pw_choice = input("\nPlease type the exact name\n")
+        if pw_choice in local_ws.col_values(1):
+            local_pws = local_ws.find(f"{pw_choice}").row
+            print(f"\nUsername: {local_ws.cell(local_pws,2).value}")
+            print(f"Password: {local_ws.cell(local_pws,3).value}")
+            break
+        else:
+            print("Invalid response\n")
+            continue
+
+
 def single_change(user):
     """
     Locate and change a password inside the user's worksheet
@@ -173,6 +194,7 @@ def single_change(user):
                 pw_location = local_ws.find(f"{change_pw}")
                 new_pw = input("What's the new password?\n")
                 local_ws.update_cell(pw_location.row, 3, new_pw)
+                print("Password changed successfully.")
             else:
                 print("Invalid entry")
                 continue
@@ -182,33 +204,13 @@ def single_change(user):
         break
 
 
-def inner_check(user):
-    """
-    Print a list of passwords saved in the database,
-    asks for input, and display the password selected
-    """
-    while True:
-        user_page = ACC_SHEET.cell(user.row, 1).value
-        local_ws = SHEET.worksheet(user_page)
-        print("Which password would you like to retrieve?")
-        print (f"{local_ws.col_values(1)}")
-        pw_choice = input("\nPlease type the exact name\n")
-        if pw_choice in local_ws.col_values(1):
-            local_pws = local_ws.find(f"{pw_choice}").row
-            print(f"\nUsername: {local_ws.cell(local_pws,2).value}")
-            print(f"Password: {local_ws.cell(local_pws,3).value}")
-            break
-        else:
-            print("Invalid response\n")
-            continue
-
 
 def master_change(user):
     while True:
         new_master = input('\nEnter new master password\n')
         if len(new_master) >= 6 and len(new_master) <= 255:
             ACC_SHEET.update_cell(user.row, 2, f'{new_master}')
-            print("Password modified successfully!")
+            print("Master password modified successfully!")
             break
         else:
             print("Invalid master password")
