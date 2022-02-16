@@ -6,8 +6,7 @@ The main focus of this project is to develop a password vault for storage of pre
 This program can create a new master account, with a unique username and personalized password, change the master password in case of need, it can also create and modify new items inside itself (i.e. Facebook account, Slack account), it also able to display the passwords stored within it.
 
 ## User stories
-- As an user of this program I would like to:
-
+As an user of this program I would like to:
 1. Create an account and be able to log back into it whenever necessary.
 2. Be prompted with options if I enter the wrong username/password.
 3. Have the option to create a new item containing username and password inside my vault.
@@ -18,18 +17,12 @@ This program can create a new master account, with a unique username and persona
 
 ## Design
 ### Flowchart
-
 ![Flowchart](https://github.com/nellymaw/google-sheet-password-vault/blob/main/readmeContent/Flowchart.svg)
 
-## Features
-**************************
-
 ## Data Model
-
 The user used throughout the second half of the program's run contains 3 values <CELL RowN#ColN# "Value"> this data type is automatically generated via Gspread.
 
 Through the program's code, the value is used to locate rows and columns and also values on occasion to pinpoint where the next logical step for the program is.
-
 
 ## Testing
 I have manually tested the project by doing the following:
