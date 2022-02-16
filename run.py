@@ -16,16 +16,16 @@ SHEET = GSPREAD_CLIENT.open('pwManager')
 ACC_SHEET = SHEET.worksheet('usernames')
 
 
-def account_exist():
+def does_account_exist():
     """
-    Asks if the user has an account
+    Enquires the user if he has an account
     """
     answer_low = ""
     while True:
         answer = input("Do you have an account? Y/N\n")
         answer_low = answer.lower()
         if answer_low == "no" or answer_low == "n":
-            create_acc()
+            create_account()
         elif answer_low == "yes" or answer_low == "y":
             return answer_low
         else:
@@ -33,7 +33,7 @@ def account_exist():
             continue
 
 
-def existing_acc():
+def verify_account():
     """
     Check the existence of the account on the user list.
     """
@@ -47,69 +47,69 @@ def existing_acc():
             if retry_create.lower() == "retry":
                 continue
             elif retry_create.lower() == "create":
-                create_acc()
+                create_account()
                 continue
             else:
                 print("Invalid response")
                 continue
-        pw_verify(user_found)
+        verify_password(user_found)
 
 
-def create_acc():
+def create_account():
     """
-    Create a new user on the first empty row on the users spreadsheet
+    Create a username for the user's account
     """
     invalid_user = True
     new_user = None
     while invalid_user is True:
-        new_user = input("\nWhat username would you like to use?\n")
-        if new_user in ACC_SHEET.col_values(1) or " " in new_user:
+        new_user = input("\nWhat username would you like to use?\n").upper()
+        if new_user in str(ACC_SHEET.col_values(1)).upper() or " " in new_user or len(new_user) < 1:
             print("-*-Username Unavailable-*-")
             continue
-        elif new_user not in ACC_SHEET.col_values(1) and new_user is not None:
+        elif new_user not in str(ACC_SHEET.col_values(1)).upper() and new_user is not None:
             invalid_user = False
             if invalid_user is False:
                 new_user_row = int(len(ACC_SHEET.col_values(1)))+1
                 ACC_SHEET.update_cell(new_user_row, 1, f'{new_user}')
                 SHEET.add_worksheet(title=f'{new_user}', rows="100", cols="3")
         print("\nYour password must be between 6 and 255 characters.")
-        new_pw = input("Please type your password.\n")
-        create_pw(new_pw, new_user)
+        new_password = input("Please type your password.\n")
+        create_master_password(new_password, new_user)
 
 
-def create_pw(pw, user):
+def create_master_password(password, user):
     """
-    Create a password for the newly created user.
+    Create a password for the newly created account
     """
     while True:
-        pw_check = input("\nPlease type your password again.\n")
-        if pw != pw_check or len(pw) < 6 or len(pw) > 255:
+        password_check = input("\nPlease type your password again.\n")
+        if password != password_check or len(password) < 6 or len(password) > 255:
             print ("\nInvalid password.")
             continue
-        elif pw == pw_check:
+        elif password == password:
             new_pw_row = ACC_SHEET.find(f"{user}").row
-            ACC_SHEET.update_cell(new_pw_row, 2, f'{pw}')
+            ACC_SHEET.update_cell(new_pw_row, 2, f'{password}')
             print("\nYour account has been created successfully!\n")
         break
 
 
-def pw_verify(user):
+def verify_password(user):
     """
-    Checks user's password against database
+    Verifies the entered password against the database
     """
-    pw_accepted = False
-    while pw_accepted is False:
-        pw_check = input("\nWhat's your password?\n")
-        pw_counter = ACC_SHEET.cell(user.row, 2).value
-        if pw_check != pw_counter:
+    password_accepted = False
+    while password_accepted is False:
+        password_check = input("\nWhat's your password?\n")
+        password_counter = ACC_SHEET.cell(user.row, 2).value
+        if password_check != password_counter:
             print("\n-x-Wrong password-x-")
             continue
-        elif pw_check == pw_counter:
-            pw_accepted = True
-            pw_passed(user)
+        elif password_check == password_counter:
+            password_accepted = True
+            account_options(user)
 
 
-def pw_passed(user):
+def account_options(user):
     """
     Display account options
     """
@@ -121,13 +121,13 @@ def pw_passed(user):
         print("4.Modify your master password.")
         choice = input("5.Exit\n\n")
         if choice == "1":
-            inner_new(user)
+            create_new_password(user)
         elif choice == "2":
-            inner_check(user)
+            check_existing_password(user)
         elif choice == "3":
-            single_change(user)
+            change_single_password(user)
         elif choice == "4":
-            master_change(user)
+            change_master_password(user)
         elif choice == "5":
             print("\nGoodbye")
             quit()
@@ -136,18 +136,18 @@ def pw_passed(user):
             continue
 
 
-def inner_new(user):
+def create_new_password(user):
     """
-    Creates a new item in the vault
+    Creates a new item in the user's vault
     """
     while True:
-        user_page = ACC_SHEET.cell(user.row, user.col).value
-        local_ws = SHEET.worksheet(user_page)
+        user_worksheet = ACC_SHEET.cell(user.row, user.col).value
+        local_ws = SHEET.worksheet(user_worksheet)
         new_obj = input("\nWebsite/app name:\n")
         if new_obj not in local_ws.col_values(1):
             new_un = input("\nUsername:\n")
             new_pass = input("\nPassword:\n")
-            local_ws.update_cell((len(local_ws.col_values(1))+1), 1, new_obj)
+            local_ws.update_cell((len(local_ws.col_values(1))+1), 1, new_obj.upper())
             local_ws.update_cell((len(local_ws.col_values(2))+1), 2, new_un)
             local_ws.update_cell((len(local_ws.col_values(3))+1), 3, new_pass)
             print(f"Successfully created {new_obj}")
@@ -156,19 +156,19 @@ def inner_new(user):
         break
 
 
-def inner_check(user):
+def check_existing_password(user):
     """
-    Print a list of passwords saved in the database,
-    asks for input, and display the password selected
+    Print a list of passwords saved in the user's vault,
+    asks for input, then display the selected password
     """
     while True:
-        user_page = ACC_SHEET.cell(user.row, 1).value
-        local_ws = SHEET.worksheet(user_page)
+        user_worksheet = ACC_SHEET.cell(user.row, 1).value
+        local_ws = SHEET.worksheet(user_worksheet)
         print("\nWhich password would you like to retrieve?")
-        print (f"{local_ws.col_values(1)}")
-        pw_choice = input("\nPlease type the exact name\n")
-        if pw_choice in local_ws.col_values(1):
-            local_pws = local_ws.find(f"{pw_choice}").row
+        print (f"{str(local_ws.col_values(1)).upper()}")
+        password_choice = input("\nPlease type the exact name\n")
+        if password_choice.upper() in str(local_ws.col_values(1)).upper():
+            local_pws = local_ws.find(f"{password_choice}").row
             print(f"\nUsername: {local_ws.cell(local_pws,2).value}")
             print(f"Password: {local_ws.cell(local_pws,3).value}")
             break
@@ -177,13 +177,13 @@ def inner_check(user):
             continue
 
 
-def single_change(user):
+def change_single_password(user):
     """
-    Locate and change a password inside the user's worksheet
+    Locate and update a password inside the user's vault
     """
     while True:
-        user_page = ACC_SHEET.cell(user.row, user.col).value
-        local_ws = SHEET.worksheet(user_page)
+        user_worksheet = ACC_SHEET.cell(user.row, user.col).value
+        local_ws = SHEET.worksheet(user_worksheet)
         print("\nWould you like to CHECK whick apps/websites")
         print("you have a password for or do you already know")
         answer = input("Which password you want to CHANGE?\n")
@@ -205,7 +205,10 @@ def single_change(user):
         break
 
 
-def master_change(user):
+def change_master_password(user):
+    '''
+    Change the master password for the user's account
+    '''
     while True:
         new_master = input('\nEnter new master password\n')
         if len(new_master) >= 6 and len(new_master) <= 255:
@@ -219,9 +222,9 @@ def master_change(user):
 
 def main():
     print("Welcome to the Password Manager\n")
-    account_exist()
-    existing_acc()
+    does_account_exist()
+    verify_account()
 
 
-if _name_ == '__main__':
+if __name__ == '__main__':
     main()
