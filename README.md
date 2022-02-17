@@ -17,7 +17,7 @@ As an user of this program I would like to:
 
 ## Design
 ### Flowchart
-![Flowchart](https://github.com/nellymaw/google-sheet-password-vault/blob/main/readmeContent/Flowchart.svg)
+![Flowchart](readmeContent/Flowchart.svg)
 
 ## Data Model
 The user used throughout the second half of the program's run contains 3 values <CELL RowN#ColN# "Value"> this data type is automatically generated via Gspread.
@@ -32,42 +32,53 @@ I have manually tested the project by doing the following:
 
 I Had it tested through Heroku by a third-party.
 
-## Study cases
-Once the program starts users will be asked if they have an account. 
+## Test Cases
 
-![HaveAcc](https://github.com/nellymaw/google-sheet-password-vault/blob/main/readmeContent/haveAcoount.png)
+- To create an account:
+1. When starting the program you will be asked if you have an account as a Y/N question. Answer no.
 
-If the user doesn't, they will be set to create one, if on the other hand, they do, it will request their username and password, and compare it to the database.
+    ![HaveAcc](/readmeContent/haveAcoount.png)
 
-![HaveAcc](https://github.com/nellymaw/google-sheet-password-vault/blob/main/readmeContent/whatUsername.png)
+2. You then will be asked what username you want, if it is not available you will be prompted to enter another username. If the username is available you will be taken to the next step
 
-![CreateSuccess](https://github.com/nellymaw/google-sheet-password-vault/blob/main/readmeContent/createSucces.png)
+    ![HaveAcc](readmeContent/whatUsername.png)
 
-In case the provided data is incorrect the user will be prompted with a choice of retrying their credentials or creating a new account.
+3. You will be asked to input a password and then if it is valid you will be asked to repeat your password. If every thing goes well you will have created your account.
 
-![CreateOrRetry](https://github.com/nellymaw/google-sheet-password-vault/blob/main/readmeContent/createOrRetry.png)
+    ![CreateSuccess](readmeContent/createSucces.png)
 
-If their credentials match the ones on the database, they will be displayed 5 options: Create a new password (this will allow the user to create an item inside the vault), check existing passwords(check all items inside the vault, asks for input on which should be retrieved and displays that one), change one of the existing passwords stored inside the vault, change the master password(changes password needed to log into vault's account) or exit the program.
+*********************
+- When your account's username/password is wrong you will be prompted with a choice of retrying your credentials or creating a new account.
 
-![WhatToDo](https://github.com/nellymaw/google-sheet-password-vault/blob/main/readmeContent/whatToDo.png)
+    ![CreateOrRetry](readmeContent/createOrRetry.png)
 
-1. Create a new password.
+*********************
+- To create a new vault item firstly you need to create and/or log into your account, then when prompted with the 5 choices for your account you should choose number 1 (Create a new password).
+The program will ask three question in order to create the item: What website/app is the password going to be used for, what username will you use on that website/app, and finally, what password will the account have.
 
-![CreateItem](https://github.com/nellymaw/google-sheet-password-vault/blob/main/readmeContent/createItem.png)
+    ![CreateItem](readmeContent/createItem.png)
 
-2. Check an existing password.
+*********************
+- To check an existing password firstly you need to create and/or log into your account, then when prompted with the 5 choices for your account you should choose number 2 (Check an existing password), the program will print all itens available on your vault and ask what item would you like to retrieve. If the information provided is available it will print the username and password on the terminal.
 
-![CheckItem](https://github.com/nellymaw/google-sheet-password-vault/blob/main/readmeContent/checkItem.png)
+    ![CheckItem](readmeContent/checkItem.png)
 
-3. Modify an existing password.
+*********************
+- To modify an existing password inside the vault you need to create and/or log into your account, then when prompted with the 5 choices for your account you should choose number 3 (Modify an existing password).
+You will the be asked if you know what item you want to modify or if you would like to check what passwords you have in your account.
 
-![pwChange](https://github.com/nellymaw/google-sheet-password-vault/blob/main/readmeContent/pwChange.png)
+    If you choose "CHECK" a list of items will be printed for you and you can then choose from there.
 
-4. Modify Master Password.
+    If you choose "CHANGE" you will be asked what item you want to modify and what password should it be modified to.
 
-![pwMaster](https://github.com/nellymaw/google-sheet-password-vault/blob/main/readmeContent/pwMaster.png)
+    ![CheckItem](readmeContent/pwChange.png)
 
-5. Exit.
+*********************
+- To modify your master password you need to create and/or log into your account, then when prompted with the 5 choices for your account you should choose number 4(Modify your master password).the program will ask what the new password should be and store it on your account's credentials.
+
+    ![pwMaster](readmeContent/pwMaster.png)
+*********************
+- To exit the program whenever you are done with it's use choose the option 5 (Exit). the program will cease it's functionality (for all purposes loging you off) and prompting the user the the program has closed.
 
 Quit the program
 

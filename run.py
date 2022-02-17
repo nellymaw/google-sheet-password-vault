@@ -129,7 +129,7 @@ def account_options(user):
         elif choice == "4":
             change_master_password(user)
         elif choice == "5":
-            print("\nGoodbye")
+            print("\nYou've been logged off.")
             quit()
         else:
             print("Invalid choice.\n")
