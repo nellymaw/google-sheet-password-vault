@@ -39,8 +39,8 @@ def verify_account():
     """
     while True:
         user_check = input("\nWhat's your username?\n")
-        if user_check in ACC_SHEET.col_values(1):
-            user_found = ACC_SHEET.find(f"{user_check}")
+        if user_check.upper() in ACC_SHEET.col_values(1):
+            user_found = ACC_SHEET.find(f"{user_check.upper()}")
         else:
             print("\nUser not found. RETRY or CREATE a new one?")
             retry_create = input("\n")
@@ -66,29 +66,29 @@ def create_account():
         if new_user in str(ACC_SHEET.col_values(1)).upper() or " " in new_user or len(new_user) < 1:
             print("-*-Username Unavailable-*-")
             continue
-        elif new_user not in str(ACC_SHEET.col_values(1)).upper() and new_user is not None:
+        elif new_user.upper() not in str(ACC_SHEET.col_values(1)).upper() and new_user is not None:
             invalid_user = False
             if invalid_user is False:
                 new_user_row = int(len(ACC_SHEET.col_values(1)))+1
                 ACC_SHEET.update_cell(new_user_row, 1, f'{new_user}')
                 SHEET.add_worksheet(title=f'{new_user}', rows="100", cols="3")
         print("\nYour password must be between 6 and 255 characters.")
-        new_password = input("Please type your password.\n")
-        create_master_password(new_password, new_user)
+        create_master_password(new_user)
 
 
-def create_master_password(password, user):
+def create_master_password(user):
     """
     Create a password for the newly created account
     """
     while True:
+        new_password = input("Please type your password.\n")
         password_check = input("\nPlease type your password again.\n")
-        if password != password_check or len(password) < 6 or len(password) > 255:
+        if new_password != password_check or len(new_password) < 6 or len(new_password) > 255:
             print ("\nInvalid password.")
             continue
-        elif password == password:
+        elif password_check == new_password:
             new_pw_row = ACC_SHEET.find(f"{user}").row
-            ACC_SHEET.update_cell(new_pw_row, 2, f'{password}')
+            ACC_SHEET.update_cell(new_pw_row, 2, f'{new_password}')
             print("\nYour account has been created successfully!\n")
         break
 
@@ -188,7 +188,7 @@ def change_single_password(user):
         print("you have a password for or do you already know")
         answer = input("Which password you want to CHANGE?\n")
         if answer.lower() == "check":
-            print(local_ws.col_values(1))
+            print(str(local_ws.col_values(1)).upper())
         elif answer.lower() == "change":
             change_pw = input("Please type your new password\n")
             if change_pw in local_ws.col_values(1):

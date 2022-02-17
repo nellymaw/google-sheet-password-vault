@@ -75,7 +75,8 @@ Quit the program
 ### Solved Bugs
 - When a new user is created but there was already a user with the same username.
 - If a search returned empty there would be an AttributeError, that has been resolved.
-- User use empty username
+- User use empty username.
+- Fix bug where new users could not log in.
 
 ### Known Bugs
 - No known bugs remaining.
