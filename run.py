@@ -227,7 +227,7 @@ def change_master_password(user):
         if ' ' in new_master:
             print('Invalid master password')
             continue
-        check_new_master = input ('\nPlease repeat your new master password.\n')
+        check_new_master = input('\nPlease repeat your new master password.\n')
         if len(new_master) >= 6 and len(new_master) <= 255 and new_master == check_new_master:
             ACC_SHEET.update_cell(user.row, 2, f'{new_master}')
             print('Master password modified successfully!')
