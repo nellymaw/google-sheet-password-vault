@@ -204,7 +204,7 @@ def change_single_password(user):
             if change_option in local_ws.col_values(1):
                 password_location = local_ws.find(f'{change_option}')
                 new_password = input("What's the new password?\n")
-                if new_password < 1 or ' ' in new_password:
+                if len(new_password) < 1 or ' ' in new_password:
                     print('Invalid password')
                     continue
                 local_ws.update_cell(password_location.row, 3, new_password)
