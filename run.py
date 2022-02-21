@@ -144,12 +144,21 @@ def create_new_password(user):
         user_worksheet = ACC_SHEET.cell(user.row, user.col).value
         local_ws = SHEET.worksheet(user_worksheet)
         new_obj = input("\nWebsite/app name:\n")
-        if new_obj not in local_ws.col_values(1):
-            new_un = input("\nUsername:\n")
-            new_pass = input("\nPassword:\n")
+        if len(new_obj) > 1:
+            print("Please enter a valid username")
+            continue
+        elif new_obj not in local_ws.col_values(1):
+            new_username = input("\nUsername:\n")
+            if len(new_username) > 1:
+                print("invalid username")
+                continue
+            new_password = input("\nPassword:\n")
+            if len(new_password) > 1:
+                print("invalid password")
+                continue
             local_ws.update_cell((len(local_ws.col_values(1))+1), 1, new_obj.upper())
-            local_ws.update_cell((len(local_ws.col_values(2))+1), 2, new_un)
-            local_ws.update_cell((len(local_ws.col_values(3))+1), 3, new_pass)
+            local_ws.update_cell((len(local_ws.col_values(2))+1), 2, new_username)
+            local_ws.update_cell((len(local_ws.col_values(3))+1), 3, new_password)
             print(f"Successfully created {new_obj}")
         else:
             print("Already have a password for that.\n")
