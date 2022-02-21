@@ -88,6 +88,7 @@ Quit the program
 - If a search returned empty there would be an AttributeError, that has been resolved.
 - User use empty username.
 - Fix bug where new users could not log in.
+- When an password or master password tried to be passed empty and no errors were returned.
 
 ### Known Bugs
 - No known bugs remaining.
