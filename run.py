@@ -200,9 +200,9 @@ def change_single_password(user):
             print(str(local_ws.col_values(1)).upper())
             continue
         elif answer.lower() == 'change':
-            change_password = input('Which password do you want to change?\n')
-            if change_password in local_ws.col_values(1):
-                password_location = local_ws.find(f'{change_password}')
+            change_option = input('Which password do you want to change?\n').upper()
+            if change_option in local_ws.col_values(1):
+                password_location = local_ws.find(f'{change_option}')
                 new_password = input("What's the new password?\n")
                 if new_password < 1 or ' ' in new_password:
                     print('Invalid password')
