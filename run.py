@@ -193,6 +193,7 @@ def check_existing_password(user):
             print('Something went wrong. Please type the exact name printed by the program')
             continue
 
+
 def change_single_password(user):
     '''
     Locate and update a password inside the user's vault
@@ -200,7 +201,7 @@ def change_single_password(user):
     while True:
         user_worksheet = ACC_SHEET.cell(user.row, user.col).value
         local_ws = SHEET.worksheet(user_worksheet)
-        print('\nWould you like to CHECK whick apps/websites')
+        print('\nWould you like to CHECK which apps/websites')
         print('you have a password for or do you already know')
         answer = input('Which password you want to CHANGE?\n')
         if answer.lower() == 'check':
