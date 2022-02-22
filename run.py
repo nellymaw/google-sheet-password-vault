@@ -173,17 +173,21 @@ def check_existing_password(user):
     while True:
         user_worksheet = ACC_SHEET.cell(user.row, 1).value
         local_ws = SHEET.worksheet(user_worksheet)
-        print('\nWhich password would you like to retrieve?')
-        print (f'{str(local_ws.col_values(1)).upper()}')
-        password_choice = input('\nPlease type the exact name\n')
-        if password_choice.upper() in str(local_ws.col_values(1)).upper() and len(password_choice) > 0:
-            local_pws = local_ws.find(f'{password_choice.upper()}').row
-            print(f'\nUsername: {local_ws.cell(local_pws,2).value}')
-            print(f'Password: {local_ws.cell(local_pws,3).value}')
+        if len(local_ws.row_values(1)) < 1:
+            print('No items available')
             break
         else:
-            print('Invalid response\n')
-            continue
+            print('\nWhich password would you like to retrieve?')
+            print (f'{str(local_ws.col_values(1)).upper()}')
+            password_choice = input('\nPlease type the exact name\n')
+            if password_choice.upper() in str(local_ws.col_values(1)).upper() and len(password_choice) > 0:
+                local_pws = local_ws.find(f'{password_choice.upper()}').row
+                print(f'\nUsername: {local_ws.cell(local_pws,2).value}')
+                print(f'Password: {local_ws.cell(local_pws,3).value}')
+                break
+            else:
+                print('Invalid response\n')
+                continue
 
 
 def change_single_password(user):
