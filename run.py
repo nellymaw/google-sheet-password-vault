@@ -145,7 +145,7 @@ def create_new_password(user):
         local_ws = SHEET.worksheet(user_worksheet)
         new_obj = input('\nWebsite/app name:\n')
         if len(new_obj) < 1 or ' ' in new_obj:
-            print('Please enter a valid username')
+            print('Please enter a valid name')
             continue
         elif new_obj not in local_ws.col_values(1):
             new_username = input('\nUsername:\n')
